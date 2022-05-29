@@ -1,6 +1,6 @@
-Thanks for downloading this template!
+#CoderHouse JavaScript Comision 37720 Rodrigo Montero Duran
 
-Template Name: Medilab
-Template URL: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/
-Author: BootstrapMade.com
-License: https://bootstrapmade.com/license/
+##Creación de estructura para proyecto final
+- Descarga de plantilla Bootstrap.
+- Modificación de estructura.
+- Actualización de información de sitio.
