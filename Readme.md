@@ -2,7 +2,7 @@
 ## <img src="https://user-images.githubusercontent.com/103367542/170894562-47345668-e72e-4c31-ac11-263b37e1c7db.png" width="35"> JavaScript
 ## 🏫 Comisión 37720
 ## 👨🏻‍🎓 Rodrigo Montero Durán
-### 👁 Proyecto Integrador
+## 👁 Proyecto Integrador
 - Daltest: El proyecto consiste en una aplicación web con distintos tests para la detección del daltonismo.
 
 ### ✏️ Creación de html y js de test ishihara y niños (11/06/2022)
