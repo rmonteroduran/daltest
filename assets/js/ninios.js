@@ -1,76 +1,76 @@
 
 /**
-* Name: Daltest
+* Name: Daltest, test para niños
 * Author: Rodrigo Montero
 */
 
 let resultado = 0;
 let respuestas = '';
-const respuestasCorrectas = '8, 5, 2, 10, 4, 7, 1, 6, 3, 9';
+const respuestasCorrectas = 'H, E, B, J, D, G, A, F, C, I';
 
 for (let i = 1; i <= 10; i++) {
-    let numeroIngresado = prompt('Ingrese el número de la imagen nro. ' + i + ' (0 para salir)');
-    if (numeroIngresado == 0) {
+    let letraIngresada = prompt('Ingrese la letra correspondiente a la imagen nro. ' + i + ' (ESC para salir)').toLocaleUpperCase();
+    if (letraIngresada == 'ESC' || letraIngresada == '') {
         i = 13;
     } else {
         switch (i) {
             case 1:
-                respuestas = numeroIngresado 
-                if (numeroIngresado == 8) {
+                respuestas = letraIngresada;
+                if (letraIngresada == 'H') {
                     resultado = resultado + 1
                 }
                 break;
             case 2:
-                respuestas = respuestas + ', ' + numeroIngresado 
-                if (numeroIngresado == 5) {
+                respuestas = respuestas + ', ' + letraIngresada;
+                if (letraIngresada == 'E') {
                     resultado = resultado + 1
                 }
                 break;
             case 3:
-                respuestas = respuestas + ', ' + numeroIngresado 
-                if (numeroIngresado == 2) {
+                respuestas = respuestas + ', ' + letraIngresada
+                if (letraIngresada == 'B') {
                     resultado = resultado + 1
                 }
                 break;
             case 4:
-                respuestas = respuestas + ', ' + numeroIngresado 
-                if (numeroIngresado == 10) {
+                respuestas = respuestas + ', ' + letraIngresada 
+                if (letraIngresada == 'J') {
                     resultado = resultado + 1
                 }
                 break;
             case 5:
-                respuestas = respuestas + ', ' + numeroIngresado 
-                if (numeroIngresado == 4) {
+                respuestas = respuestas + ', ' + letraIngresada 
+                if (letraIngresada == 'D') {
                     resultado = resultado + 1
                 }
                 break;
             case 6:
-                respuestas = respuestas + ', ' + numeroIngresado 
-                if (numeroIngresado == 7) {
+                respuestas = respuestas + ', ' + letraIngresada 
+                if (letraIngresada == 'G') {
                     resultado = resultado + 1
                 }
                 break;
             case 7:
-                respuestas = respuestas + ', ' + numeroIngresado 
-                if (numeroIngresado == 1) {
+                respuestas = respuestas + ', ' + letraIngresada 
+                if (letraIngresada == 'A') {
                     resultado = resultado + 1
                 }
                 break;
             case 8:
-                respuestas = respuestas + ', ' + numeroIngresado 
-                if (numeroIngresado == 6) {
+                respuestas = respuestas + ', ' + letraIngresada
+                if (letraIngresada == 'F') {
                     resultado = resultado + 1
                 }
                 break;
             case 9:
-                respuestas = respuestas + ', ' + numeroIngresado 
-                if (numeroIngresado == 3) {
+                respuestas = respuestas + ', ' + letraIngresada
+                if (letraIngresada == 'C') {
                     resultado = resultado + 1
                 }
                 break;
             case 10:
-                respuestas = respuestas + ', ' + numeroIngresado 
-                if (numeroIngresado == 9) {
+                respuestas = respuestas + ', ' + letraIngresada 
+                if (letraIngresada == 'I') {
                     resultado = resultado + 1
                 }
                 if (resultado != 0) {

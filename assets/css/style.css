@@ -487,6 +487,11 @@ section {
   text-align: center;
   padding-bottom: 30px;
 }
+.section-title-tests {
+  text-align: center;
+  padding-top: 100px;
+  padding-bottom: 30px;
+}
 .section-title h2 {
   font-size: 32px;
   font-weight: bold;
@@ -1278,6 +1283,11 @@ section {
 .img-ninios {
   padding: 15px;
   width: 300px;
+  height: auto;
+}
+.img-pdt {
+  padding: 15px;
+  width: 330px;
   height: auto;
 }
 

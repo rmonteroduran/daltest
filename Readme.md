@@ -5,8 +5,9 @@
 
 ### ✏️ Creación de html y js de test ishihara y niños (11/06/2022)
 - Se crea html test ishihara.
-- Se crea html test ninios.
-- Se crean js ishihara y ninios con lógica de tests.
+- Se crea html test niños.
+- Se crea html test protan y deutan. 
+- Se crean js ishihara y niños con lógica de tests.
 - Se adapta css y diseño de plantilla.
 ### ✏️ Creación de estructura para proyecto final (29/05/2022)
 - Descarga de plantilla Bootstrap.

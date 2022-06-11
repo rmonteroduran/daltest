@@ -1,6 +1,6 @@
 
 /**
-* Name: Daltest
+* Name: Daltest, test de ishihara
 * Author: Rodrigo Montero
 */
 
