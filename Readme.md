@@ -5,6 +5,9 @@
 ## 👁 Proyecto Integrador
 - Daltest: El proyecto consiste en una aplicación web con distintos tests para la detección del daltonismo.
 
+### ✏️ Incorporación de arrays
+- Se crea array respuestasCorrectas en ishihara.js
+- Se crea array respuestasCorrectas en ninios.js
 ### ✏️ Creación de html y js de test ishihara y niños (11/06/2022)
 - Se crea html test ishihara.
 - Se crea html test niños.
