@@ -8,6 +8,7 @@
 ### ✏️ Incorporación de arrays (15/06/2022)
 - Se crea array respuestasCorrectas en ishihara.js
 - Se crea array respuestasCorrectas en ninios.js
+- Se reducen lineas de codigo dentro de iteración.
 ### ✏️ Creación de html y js de test ishihara y niños (11/06/2022)
 - Se crea html test ishihara.
 - Se crea html test niños.
