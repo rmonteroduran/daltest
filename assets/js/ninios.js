@@ -6,7 +6,7 @@
 
 let resultado = 0;
 let respuestas = '';
-const respuestasCorrectas = 'H, E, B, J, D, G, A, F, C, I';
+const respuestasCorrectas = ['H','E','B','J','D','G','A','F','C','I'];
 
 for (let i = 1; i <= 10; i++) {
     let letraIngresada = prompt('Ingrese la letra correspondiente a la imagen nro. ' + i + ' (ESC para salir)').toLocaleUpperCase();
@@ -16,66 +16,66 @@ for (let i = 1; i <= 10; i++) {
         switch (i) {
             case 1:
                 respuestas = letraIngresada;
-                if (letraIngresada == 'H') {
+                if (letraIngresada == respuestasCorrectas[i-1]) {
                     resultado = resultado + 1
                 }
                 break;
             case 2:
                 respuestas = respuestas + ', ' + letraIngresada;
-                if (letraIngresada == 'E') {
+                if (letraIngresada == respuestasCorrectas[i-1]) {
                     resultado = resultado + 1
                 }
                 break;
             case 3:
                 respuestas = respuestas + ', ' + letraIngresada
-                if (letraIngresada == 'B') {
+                if (letraIngresada == respuestasCorrectas[i-1]) {
                     resultado = resultado + 1
                 }
                 break;
             case 4:
                 respuestas = respuestas + ', ' + letraIngresada 
-                if (letraIngresada == 'J') {
+                if (letraIngresada == respuestasCorrectas[i-1]) {
                     resultado = resultado + 1
                 }
                 break;
             case 5:
                 respuestas = respuestas + ', ' + letraIngresada 
-                if (letraIngresada == 'D') {
+                if (letraIngresada == respuestasCorrectas[i-1]) {
                     resultado = resultado + 1
                 }
                 break;
             case 6:
                 respuestas = respuestas + ', ' + letraIngresada 
-                if (letraIngresada == 'G') {
+                if (letraIngresada == respuestasCorrectas[i-1]) {
                     resultado = resultado + 1
                 }
                 break;
             case 7:
                 respuestas = respuestas + ', ' + letraIngresada 
-                if (letraIngresada == 'A') {
+                if (letraIngresada == respuestasCorrectas[i-1]) {
                     resultado = resultado + 1
                 }
                 break;
             case 8:
                 respuestas = respuestas + ', ' + letraIngresada
-                if (letraIngresada == 'F') {
+                if (letraIngresada == respuestasCorrectas[i-1]) {
                     resultado = resultado + 1
                 }
                 break;
             case 9:
                 respuestas = respuestas + ', ' + letraIngresada
-                if (letraIngresada == 'C') {
+                if (letraIngresada == respuestasCorrectas[i-1]) {
                     resultado = resultado + 1
                 }
                 break;
             case 10:
                 respuestas = respuestas + ', ' + letraIngresada 
-                if (letraIngresada == 'I') {
+                if (letraIngresada == respuestasCorrectas[i-1]) {
                     resultado = resultado + 1
                 }
                 if (resultado != 0) {
                     alert('Respuestas: ' + respuestas)
-                    alert('Respuestas correctas: ' + respuestasCorrectas)
+                    alert('Respuestas correctas: ' + respuestasCorrectas.join())
                     alert('Resultado: ' + ((resultado*100)/10) + '% (' + resultado + '/10)')
                 }
                 break;
