@@ -4,7 +4,10 @@
 ## 👨🏻‍🎓 Rodrigo Montero Durán
 ## 👁 Proyecto Integrador
 - Daltest: El proyecto consiste en una aplicación web con distintos tests para la detección del daltonismo.
-
+### ✏️ Incorporación de funciones (20/06/2022)
+- Se crea funcion de comparacion de respuestas ingresadas vs respuestasCorrectas en ishihara.js
+- Se crea funcion de comparacion de respuestas ingresadas vs respuestasCorrectas en ninios.js
+- Se reducen lineas de codigo dentro de iteración.
 ### ✏️ Incorporación de arrays (15/06/2022)
 - Se crea array respuestasCorrectas en ishihara.js
 - Se crea array respuestasCorrectas en ninios.js
