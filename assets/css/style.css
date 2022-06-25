@@ -1548,3 +1548,26 @@ section {
   color: #fff;
   text-decoration: none;
 }
+
+/*--------------------------------------------------------------
+# Ishihara / ninios
+--------------------------------------------------------------*/
+
+.responses {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.responses ul {
+  text-align: center;
+  list-style: none;
+}
+
+.resultado {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
