@@ -3,7 +3,63 @@
 * Author: Rodrigo Montero
 */
 
-//variables
+// array imagenes
+const imagenes = [
+    { id:1, img: "../assets/img/test_ninios/kids-color-blind-test-01.jpeg" },
+    { id:2, img: "../assets/img/test_ninios/kids-color-blind-test-02.jpeg" },
+    { id:3, img: "../assets/img/test_ninios/kids-color-blind-test-03.jpeg" },
+    { id:4, img: "../assets/img/test_ninios/kids-color-blind-test-04.jpeg" },
+    { id:5, img: "../assets/img/test_ninios/kids-color-blind-test-05.jpeg" },
+    { id:6, img: "../assets/img/test_ninios/kids-color-blind-test-06.jpeg" },
+    { id:7, img: "../assets/img/test_ninios/kids-color-blind-test-07.jpeg" },
+    { id:8, img: "../assets/img/test_ninios/kids-color-blind-test-08.jpeg" },
+    { id:9, img: "../assets/img/test_ninios/kids-color-blind-test-09.jpeg" },
+    { id:10, img: "../assets/img/test_ninios/kids-color-blind-test-10.jpeg" },
+]
+
+// array imagenes respuestas
+const imagenesResp = [
+    { id:'A', img: "../assets/img/test_ninios/01.jpeg" },
+    { id:'B', img: "../assets/img/test_ninios/02.jpeg" },
+    { id:'C', img: "../assets/img/test_ninios/03.jpeg" },
+    { id:'D', img: "../assets/img/test_ninios/04.jpeg" },
+    { id:'E', img: "../assets/img/test_ninios/05.jpeg" },
+    { id:'F', img: "../assets/img/test_ninios/06.jpeg" },
+    { id:'G', img: "../assets/img/test_ninios/07.jpeg" },
+    { id:'H', img: "../assets/img/test_ninios/08.jpeg" },
+    { id:'I', img: "../assets/img/test_ninios/09.jpeg" },
+    { id:'J', img: "../assets/img/test_ninios/10.jpeg" },
+]
+
+//carga de imagenes en html
+let imgs = document.getElementById("imagenes")
+imagenes.forEach(imagen => {
+    let img = document.createElement("div")
+    img.className="col-lg-3 col-md-4"
+    img.innerHTML=`
+    <div class="gallery-item">
+        <img src="${imagen.img}" alt="" class="img-ninios">
+        <p>${imagen.id}</p>
+    </div>
+    `
+    imgs.append(img)
+});
+
+//carga de imagenes de respuestas en html
+let imgsRsp = document.getElementById("imagenesRespuestas")
+imagenesResp.forEach(imagen => {
+    let imgRsp = document.createElement("div")
+    imgRsp.className="col-lg-3 col-md-4"
+    imgRsp.innerHTML=`
+    <div class="gallery-item">
+        <img src="${imagen.img}" alt="" class="img-fluid">
+        <p>${imagen.id}</p>
+    </div>
+    `
+    imgsRsp.append(imgRsp)
+});
+
+//variables para proceso
 let resultado = 0;
 const respuestasCorrectas = ['H','E','B','J','D','G','A','F','C','I'];
 

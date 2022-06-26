@@ -3,7 +3,37 @@
 * Author: Rodrigo Montero
 */
 
-//variables
+// array imagenes
+const imagenes = [
+    { id:1, img: "../assets/img/test_ishihara/Ishihara_01.jpeg" },
+    { id:2, img: "../assets/img/test_ishihara/Ishihara_02.jpeg" },
+    { id:3, img: "../assets/img/test_ishihara/Ishihara_03.jpeg" },
+    { id:4, img: "../assets/img/test_ishihara/Ishihara_04.jpeg" },
+    { id:5, img: "../assets/img/test_ishihara/Ishihara_05.jpeg" },
+    { id:6, img: "../assets/img/test_ishihara/Ishihara_06.jpeg" },
+    { id:7, img: "../assets/img/test_ishihara/Ishihara_07.jpeg" },
+    { id:8, img: "../assets/img/test_ishihara/Ishihara_08.jpeg" },
+    { id:9, img: "../assets/img/test_ishihara/Ishihara_09.jpeg" },
+    { id:10, img: "../assets/img/test_ishihara/Ishihara_10.jpeg" },
+    { id:11, img: "../assets/img/test_ishihara/Ishihara_11.jpeg" },
+    { id:12, img: "../assets/img/test_ishihara/Ishihara_12.jpeg" },
+]
+
+//carga de imagenes en html
+let imgs = document.getElementById("imagenes")
+imagenes.forEach(imagen => {
+    let img = document.createElement("div")
+    img.className="col-lg-3 col-md-4"
+    img.innerHTML=`
+    <div class="gallery-item">
+    <img src="${imagen.img}" alt="" class="img-fluid">
+    <p>${imagen.id}</p>
+    </div>
+    `
+    imgs.append(img)
+});
+
+//variables para proceso
 let resultado = 0;
 const respuestasCorrectas = ['74', '6', '16', '2', '29', '7', '45', '5', '97', '8', '42', '3'];
 
