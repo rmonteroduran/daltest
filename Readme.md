@@ -4,6 +4,10 @@
 ## 👨🏻‍🎓 Rodrigo Montero Durán
 ## 👁 Proyecto Integrador
 - Daltest: El proyecto consiste en una aplicación web con distintos tests para la detección del daltonismo.
+### ✏️ Segunda entrega proyecto final (03/07/2022)
+- Se optimiza lógica de codigo js en ishihara.js y ninios.js.
+- Se incorpora sessionStorage.
+- Se optimiza visualización.
 ### ✏️ Incorporación de DOM y Eventos (25/06/2022)
 - Se incorporan respuestas ingresadas, respuestasCorrectas y puntaje en html ishihara y ninios con DOM.
 - Se incorpora boton con evento de inicio de test en ishihara y ninios.

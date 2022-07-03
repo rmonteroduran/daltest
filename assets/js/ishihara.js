@@ -19,27 +19,45 @@ const imagenes = [
     { id:12, img: "../assets/img/test_ishihara/Ishihara_12.jpeg" },
 ]
 
-//carga de imagenes en html
-let imgs = document.getElementById("imagenes")
-imagenes.forEach(imagen => {
-    let img = document.createElement("div")
-    img.className="col-lg-3 col-md-4"
-    img.innerHTML=`
-    <div class="gallery-item">
-    <img src="${imagen.img}" alt="" class="img-fluid">
-    <p>${imagen.id}</p>
-    </div>
-    `
-    imgs.append(img)
-});
-
 //variables para proceso
 let resultado = 0;
 const respuestasCorrectas = ['74', '6', '16', '2', '29', '7', '45', '5', '97', '8', '42', '3'];
+sessionStorage.setItem('imgId', 0);
+respuestas = [];
 
-//evento sobre boton iniciar
-let boton = document.getElementById("btnIniciar")
-boton.addEventListener("click", proceso)
+//////////FUNCIONES///////////
+
+//funcion para cargar resultado de test
+function finalTest() {
+    comparar(respuestas); 
+    //incorporo respuestas a lista html
+    let padreResp = document.getElementById("respuestas");
+    padreResp.innerText = "Respuestas";
+    for (const respuesta of respuestas) {
+        let li = document.createElement("li");
+        li.innerHTML = respuesta;
+        padreResp.appendChild(li);
+    }
+    //incorporo respuestas correctas a lista html
+    let padreRespCorrectas = document.getElementById("respuestasCorrectas");
+    padreRespCorrectas.innerText = "Respuestas Correctas"
+    for (const respuestaCorrecta of respuestasCorrectas) {
+        let li2 = document.createElement("li");
+        li2.innerHTML = respuestaCorrecta;
+        padreRespCorrectas.appendChild(li2);
+    }
+    //incorporo puntaje a html
+    let puntaje = document.getElementById("puntaje");
+    puntaje.innerText = 'Resultado: ' + Math.round((resultado*100)/18) + '% (' + resultado + '/18)'
+    //incorporo boton reiniciar
+    let reinicio = document.getElementById("reiniciar");
+    reinicio.href = "ishiharaTest.html"
+    let btn = document.createElement("button");
+    btn.className = "btn-test-inicio";
+    btn.id = "btn-reinciar";
+    reinicio.append(btn);
+    btn.innerText = "Reiniciar";
+}
 
 //funcion para comparar respuestas ingresadas vs respuestas correctas
 function comparar(arr) {
@@ -47,65 +65,96 @@ function comparar(arr) {
     arr.forEach((elemento, indice)=> {
         if (respuestasCorrectas[indice].substring(0,1)) {
             if (elemento.substring(0,1) == respuestasCorrectas[indice].substring(0,1) || elemento.substring(1,2) == respuestasCorrectas[indice].substring(0,1)) {
-                console.log(elemento.substring(0,1) + ' , ' + respuestasCorrectas[indice].substring(0,1));
                 resultado += 1;
             }
         }
         if (respuestasCorrectas[indice].substring(1,2)) {
             if (elemento.substring(1,2) == respuestasCorrectas[indice].substring(1,2) || elemento.substring(0,1) == respuestasCorrectas[indice].substring(1,2)) {
-                console.log(elemento.substring(1,2) + ' , ' + respuestasCorrectas[indice].substring(1,2));
                 resultado += 1;
             }
         }
     })
 }
 
+//funcion para cargar imagen inicial
+function cargarImagen(x) {
+    //cargo imagen, input y boton siguiente
+    Imagen = imagenes[x];
+    let imgs = document.getElementById("imagenes");
+    let img = document.createElement("div");
+    img.id="imagenes-child";
+    img.className="img-test-ishihara-child";
+    img.innerHTML=`
+    <img id="img-src" src="${Imagen.img}" alt="">
+    <input type="text" id="nro-resp" placeholder="Número">
+    <button id="btnSiguiente" class="btn-test-inicio">Siguiente</button>
+    `;
+    imgs.append(img);
+}
+
 //funcion de proceso
-function proceso () {
-    let respuestas = [];
-    for (let i = 1; i <= 12; i++) {
-        let numeroIngresado = prompt('Ingrese el número de la imagen nro. ' + i + ' (0 para salir)');
-        respuestas.push(numeroIngresado); //guardo en array la respuesta ingresada
-        if (numeroIngresado == 0) {
-            i = 13; //si no se ingresa nada o se ingresa esc fuerzo la salida
-            //limpio listas de respuestas
-            let limpiarRespuestas = document.getElementById("respuestas");
-            let limpiarRespuestasCorrectas = document.getElementById("respuestasCorrectas");
-            let limpiarPuntaje = document.getElementById("puntaje");
-            limpiarRespuestas.innerText = "";
-            limpiarRespuestasCorrectas.innerText = "";
-            limpiarPuntaje.innerText = "";
-            for (let j = 0; j < 12; j++) {
-                limpiarRespuestas.removeChild(j);
-                limpiarRespuestasCorrectas.removeChild(j);
-            }
-            break;
+function proceso() {
+    let imgNro = sessionStorage.getItem('imgId');
+    if (imgNro == 0) { 
+        //quito el boton iniciar
+        botonIni.remove();
+        //cambio texto subtitulo
+        let txt = document.getElementById("texto-test");
+        txt.innerText = "Tienes que introducir el número o números que veas en cada disco. Hay 12 discos.";
+        //llamo funcion para cargar imagen
+        cargarImagen(imgNro);
+        //muevo la posicion
+        nxtImg = parseFloat(imgNro) + 1;
+        sessionStorage.setItem('imgId', nxtImg);
+    } else if (imgNro == 12) {
+        //guardo respuesta
+        let rsp = document.getElementById("nro-resp").value;
+        if (rsp == null || rsp == "") {
+            respuestas.push("0");
         } else {
-            if (i === 12) {
-                comparar(respuestas); //llamo a la funcion para comparar
-                //incorporo respuestas a lista html
-                let padreResp = document.getElementById("respuestas");
-                padreResp.innerText = "Respuestas"
-                for (const respuesta of respuestas) {
-                    let li = document.createElement("li");
-                    li.innerHTML = respuesta
-                    padreResp.appendChild(li);
-                }
-                //incorporo respuestas correctas a lista html
-                let padreRespCorrectas = document.getElementById("respuestasCorrectas");
-                padreRespCorrectas.innerText = "Respuestas Correctas"
-                for (const respuestaCorrecta of respuestasCorrectas) {
-                    let li2 = document.createElement("li");
-                    li2.innerHTML = respuestaCorrecta
-                    padreRespCorrectas.appendChild(li2);
-                }
-                //incorporo puntaje a html
-                let puntaje = document.getElementById("puntaje");
-                puntaje.innerText = 'Resultado: ' + Math.round((resultado*100)/18) + '% (' + resultado + '/18)'
-            }
+            respuestas.push(rsp);
+        }
+        //elimino objetos
+        let tst = document.getElementById("imagenes");
+        let txt = document.getElementById("texto-test");
+        tst.remove();
+        txt.remove();
+        //calculo resultado test
+        finalTest();
+    } else {
+        //reemplazo imagen
+        Imagen = imagenes[imgNro];
+        let img = document.getElementById("img-src");
+        img.src = Imagen.img;
+        //guardo respuesta
+        let rsp = document.getElementById("nro-resp").value;
+        if (rsp == null || rsp == "")  {
+            respuestas.push("0");
+        } else {
+            respuestas.push(rsp);
+        }
+        //vacio input
+        document.getElementById("nro-resp").value = "";
+        //muevo la posicion
+        nxtImg = parseFloat(imgNro) + 1;
+        sessionStorage.setItem('imgId', nxtImg);
+    }
+    //evento sobre boton siguiente
+    if (imgNro <= 11) {
+        let botonSte = document.getElementById("btnSiguiente");
+        botonSte.addEventListener("click", proceso);
+        if (imgNro == 11) {
+            botonSte.innerText = "Finalizar";
         }
     }
 }
+
+////////////EVENTOS///////////
+
+//evento sobre boton iniciar
+let botonIni = document.getElementById("btnIniciar");
+botonIni.addEventListener("click", proceso);
+
 
 
 

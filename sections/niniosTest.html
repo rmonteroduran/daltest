@@ -77,14 +77,12 @@
   </header><!-- End Header -->
 
     <!-- ======= Gallery Section ======= -->
-    <section id="gallery" class="gallery">
+    <section id="gallery" class="gallery ishi">
       <div class="container">
         <div class="section-title-tests">
           <h1>Test para niños</h1>
-          <p>Hay animales escondidos entre los puntos. Elige de entre los animales que te mostramos abajo el que coincida con el que hay en el círculo de puntos.</p>
-          <p>Hay que tener en cuenta que el color de los test de las pantallas de ordenador no son exactamente iguales a los colores de los test originales. Los colores de un libro impreso no pueden simularse en una pantalla. El test solo puede determinar el daltonismo rojo-verde y su sensibilidad no es del 100 %. </p>
-          <p>Ayuda a tu hijo a realizar el test. La tarea que ha de hacer el niño es decir qué animal ve.</p>
-          <button id="btnIniciar">Iniciar</button>
+          <p id="texto-test">Hay que tener en cuenta que el color de los test de las pantallas de ordenador no son exactamente iguales a los colores de los test originales. Los colores de un libro impreso no pueden simularse en una pantalla. El test solo puede determinar el daltonismo rojo-verde y su sensibilidad no es del 100 %. </p>
+          <button class="btn-test-inicio" id="btnIniciar">Iniciar</button>
         </div>
       </div>
       <div class="container-fluid">
@@ -93,19 +91,13 @@
     </section>
 
     <!-- ======= Gallery Section ======= -->
-    <section id="gallery-respuestas" class="gallery">
-      <div class="container">
-
-        <div class="section-title">
-          <h4>Elige el animal apropiado que veas en cada disco.</h4>
-        </div>
-      </div>
+    <section id="gallery-respuestas" class="gallery resp">
       <div class="container-fluid">
         <div id="imagenesRespuestas" class="row g-0"></div>
       </div>
     </section><!-- End Gallery Section -->
 
-    <section>
+    <section class="resp">
       <div class="responses">
         <ul id="respuestas"></ul>
         <ul id="respuestasCorrectas"></ul>
@@ -113,6 +105,8 @@
       <div class="resultado">
         <p id="puntaje"></p>
       </div>
+      <a id="reiniciar">
+      </a>
     </section>
 
   </main><!-- End #main -->

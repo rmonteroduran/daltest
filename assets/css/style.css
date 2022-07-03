@@ -893,6 +893,44 @@ section {
 .services .icon-box:hover h4 a, .services .icon-box:hover p {
   color: #fff;
 }
+.row-services {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.col-services {
+  height: 400px;
+  width: 400px;
+}
+
+@media (min-width: 1024px) {
+  .row-services {
+    flex-direction: row;
+  }
+  .col-services {
+    height: 400px;
+    width: 400px;
+  }
+}
+@media (max-width: 992px) {
+  .row-services {
+    flex-direction: row;
+  }
+  .col-services {
+    height: 400px;
+    width: 400px;
+  }
+}
+@media (max-height: 600px) {
+  .row-services {
+    flex-direction: column;
+  }
+  .col-services {
+    height: auto;
+    width: auto;
+  }
+}
 
 /*--------------------------------------------------------------
 # Appointments
@@ -1552,6 +1590,17 @@ section {
 /*--------------------------------------------------------------
 # Ishihara / ninios
 --------------------------------------------------------------*/
+.ishi {
+  padding-bottom: 0px;
+}
+
+.resp {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .responses {
   display: flex;
@@ -1570,4 +1619,53 @@ section {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.btn-test-inicio {
+  margin-left: 0px;
+  background: #1977cc;
+  color: #fff;
+  border-color: #166ab5 ;
+  border-radius: 50px;
+  padding: 8px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.btn-test-inicio:hover {
+  background: #3291e6;
+  border-color: #3291e6 ;
+}
+
+.img-test-ishihara {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+
+.img-test-ishihara-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+
+.img-test-ishihara-child img {
+  height: 500px;
+  width: auto;
+}
+
+.img-test-ishihara-child input {
+  margin-bottom: 30px;
+}
+
+.img-test-ishihara-child input {
+  margin-bottom: 30px;
+}
+
+.dibus {
+  padding: 20px;
 }
