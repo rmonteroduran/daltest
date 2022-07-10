@@ -63,16 +63,10 @@ function finalTest() {
 function comparar(arr) {
     resultado = 0;
     arr.forEach((elemento, indice)=> {
-        if (respuestasCorrectas[indice].substring(0,1)) {
-            if (elemento.substring(0,1) == respuestasCorrectas[indice].substring(0,1) || elemento.substring(1,2) == respuestasCorrectas[indice].substring(0,1)) {
-                resultado += 1;
-            }
-        }
-        if (respuestasCorrectas[indice].substring(1,2)) {
-            if (elemento.substring(1,2) == respuestasCorrectas[indice].substring(1,2) || elemento.substring(0,1) == respuestasCorrectas[indice].substring(1,2)) {
-                resultado += 1;
-            }
-        }
+        const primerDigito = respuestasCorrectas[indice].substring(0,1) ? true : false
+        const segundoDigito = respuestasCorrectas[indice].substring(1,2) ? true : false
+        primerDigito && ((elemento.substring(0,1) == respuestasCorrectas[indice].substring(0,1) || elemento.substring(1,2) == respuestasCorrectas[indice].substring(0,1)) && resultado++);
+        segundoDigito && ((elemento.substring(1,2) == respuestasCorrectas[indice].substring(1,2) || elemento.substring(0,1) == respuestasCorrectas[indice].substring(1,2)) && resultado++);
     })
 }
 
@@ -107,45 +101,66 @@ function proceso() {
         nxtImg = parseFloat(imgNro) + 1;
         sessionStorage.setItem('imgId', nxtImg);
     } else if (imgNro == 12) {
-        //guardo respuesta
         let rsp = document.getElementById("nro-resp").value;
-        if (rsp == null || rsp == "") {
-            respuestas.push("0");
+        //valido respuesta
+        numRsp = isNaN(rsp)
+        if (rsp == null || rsp == "" || numRsp == true) {
+            Swal.fire({
+                title: 'Ingrese un número!',
+                icon: 'error',
+                confirmButtonText: 'Continuar',
+                confirmButtonColor: "#3291e6"
+            })
         } else {
+            //guardo respuesta
             respuestas.push(rsp);
+            //elimino objetos
+            let tst = document.getElementById("imagenes");
+            let txt = document.getElementById("texto-test");
+            tst.remove();
+            txt.remove();
+            //calculo resultado test
+            finalTest();
         }
-        //elimino objetos
-        let tst = document.getElementById("imagenes");
-        let txt = document.getElementById("texto-test");
-        tst.remove();
-        txt.remove();
-        //calculo resultado test
-        finalTest();
     } else {
-        //reemplazo imagen
-        Imagen = imagenes[imgNro];
-        let img = document.getElementById("img-src");
-        img.src = Imagen.img;
-        //guardo respuesta
         let rsp = document.getElementById("nro-resp").value;
-        if (rsp == null || rsp == "")  {
-            respuestas.push("0");
+        //valido respuesta
+        numRsp = isNaN(rsp)
+        if (rsp == null || rsp == "" || numRsp == true) {
+            Swal.fire({
+                title: 'Ingrese un número!',
+                icon: 'error',
+                confirmButtonText: 'Continuar',
+                confirmButtonColor: "#3291e6"
+            })
         } else {
+            //guardo respuesta
             respuestas.push(rsp);
+            //reemplazo imagen
+            Imagen = imagenes[imgNro];
+            let img = document.getElementById("img-src");
+            img.src = Imagen.img;
+            //vacio input
+            document.getElementById("nro-resp").value = "";
+            //muevo la posicion
+            nxtImg = parseFloat(imgNro) + 1;
+            sessionStorage.setItem('imgId', nxtImg);
+            //notificacion
+            Toastify({
+                text: "Respuesta guardada!",
+                duration: 2000, // milisegundos
+                position: 'center',
+                style: {
+                    background: '#3291e6'
+                }
+            }).showToast();
         }
-        //vacio input
-        document.getElementById("nro-resp").value = "";
-        //muevo la posicion
-        nxtImg = parseFloat(imgNro) + 1;
-        sessionStorage.setItem('imgId', nxtImg);
     }
     //evento sobre boton siguiente
     if (imgNro <= 11) {
         let botonSte = document.getElementById("btnSiguiente");
         botonSte.addEventListener("click", proceso);
-        if (imgNro == 11) {
-            botonSte.innerText = "Finalizar";
-        }
+        imgNro == 11 && (botonSte.innerText = "Finalizar");
     }
 }
 

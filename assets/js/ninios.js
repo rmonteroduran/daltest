@@ -76,9 +76,7 @@ function finalTest() {
 function comparar(arr) {
     resultado = 0;
     arr.forEach((elemento, indice)=> {
-        if (elemento === respuestasCorrectas[indice]) {
-            resultado += 1;
-        }
+        elemento === respuestasCorrectas[indice] && resultado++;
     })
 }
 
@@ -158,6 +156,15 @@ function proceso() {
         //muevo la posicion
         nxtImg = parseFloat(imgNro) + 1;
         sessionStorage.setItem('imgId', nxtImg);
+        //notificacion
+        Toastify({
+            text: "Respuesta guardada!",
+            duration: 2000, // milisegundos
+            position: 'center',
+            style: {
+                background: '#3291e6'
+            }
+        }).showToast();        
     }
 }
 

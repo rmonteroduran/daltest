@@ -4,6 +4,10 @@
 ## 👨🏻‍🎓 Rodrigo Montero Durán
 ## 👁 Proyecto Integrador
 - Daltest: El proyecto consiste en una aplicación web con distintos tests para la detección del daltonismo.
+### ✏️ Optimizacion proyecto final y librerias (10/07/2022)
+- Se agrega sugar syntax ++, ternario, etc.
+- Se incorpora libreria sweet alert para alertas de validación de datos.
+- Se incorpora libreria toastify para notificaciones.
 ### ✏️ Segunda entrega proyecto final (03/07/2022)
 - Se optimiza lógica de codigo js en ishihara.js y ninios.js.
 - Se incorpora sessionStorage.
