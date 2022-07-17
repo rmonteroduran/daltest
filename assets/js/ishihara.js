@@ -3,33 +3,28 @@
 * Author: Rodrigo Montero
 */
 
-// array imagenes
-const imagenes = [
-    { id:1, img: "../assets/img/test_ishihara/Ishihara_01.jpeg" },
-    { id:2, img: "../assets/img/test_ishihara/Ishihara_02.jpeg" },
-    { id:3, img: "../assets/img/test_ishihara/Ishihara_03.jpeg" },
-    { id:4, img: "../assets/img/test_ishihara/Ishihara_04.jpeg" },
-    { id:5, img: "../assets/img/test_ishihara/Ishihara_05.jpeg" },
-    { id:6, img: "../assets/img/test_ishihara/Ishihara_06.jpeg" },
-    { id:7, img: "../assets/img/test_ishihara/Ishihara_07.jpeg" },
-    { id:8, img: "../assets/img/test_ishihara/Ishihara_08.jpeg" },
-    { id:9, img: "../assets/img/test_ishihara/Ishihara_09.jpeg" },
-    { id:10, img: "../assets/img/test_ishihara/Ishihara_10.jpeg" },
-    { id:11, img: "../assets/img/test_ishihara/Ishihara_11.jpeg" },
-    { id:12, img: "../assets/img/test_ishihara/Ishihara_12.jpeg" },
-]
-
 //variables para proceso
 let resultado = 0;
-const respuestasCorrectas = ['74', '6', '16', '2', '29', '7', '45', '5', '97', '8', '42', '3'];
 sessionStorage.setItem('imgId', 0);
 respuestas = [];
 
 //////////FUNCIONES///////////
 
+//espera
+function espera(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+//funcion asincronica para espera de carga de imagenes
+async function loading() {
+    let carga = document.getElementById("loading");
+    carga.className = "preloader";
+    await espera(1000);
+    carga.className = "";
+};
+
 //funcion para cargar resultado de test
 function finalTest() {
-    comparar(respuestas); 
     //incorporo respuestas a lista html
     let padreResp = document.getElementById("respuestas");
     padreResp.innerText = "Respuestas";
@@ -41,14 +36,28 @@ function finalTest() {
     //incorporo respuestas correctas a lista html
     let padreRespCorrectas = document.getElementById("respuestasCorrectas");
     padreRespCorrectas.innerText = "Respuestas Correctas"
-    for (const respuestaCorrecta of respuestasCorrectas) {
+    fetch('../assets/json/resIshihara.json')
+    .then( (res) => res.json())
+    .then( (data) => {
+        data.forEach((respuestaCorrecta) => {
         let li2 = document.createElement("li");
         li2.innerHTML = respuestaCorrecta;
         padreRespCorrectas.appendChild(li2);
-    }
+        });
+    });
     //incorporo puntaje a html
     let puntaje = document.getElementById("puntaje");
-    puntaje.innerText = 'Resultado: ' + Math.round((resultado*100)/18) + '% (' + resultado + '/18)'
+    fetch('../assets/json/resIshihara.json')
+    .then( (res) => res.json())
+    .then( (data) => {
+        respuestas.forEach((elemento, indice)=> {
+            const primerDigito = data[indice].substring(0,1) ? true : false
+            const segundoDigito = data[indice].substring(1,2) ? true : false
+            primerDigito && ((elemento.substring(0,1) == data[indice].substring(0,1) || elemento.substring(1,2) == data[indice].substring(0,1)) && resultado++);
+            segundoDigito && ((elemento.substring(1,2) == data[indice].substring(1,2) || elemento.substring(0,1) == data[indice].substring(1,2)) && resultado++);
+        })
+        puntaje.innerText = 'Resultado: ' + Math.round((resultado*100)/18) + '% (' + resultado + '/18)'
+    })
     //incorporo boton reiniciar
     let reinicio = document.getElementById("reiniciar");
     reinicio.href = "ishiharaTest.html"
@@ -59,31 +68,31 @@ function finalTest() {
     btn.innerText = "Reiniciar";
 }
 
-//funcion para comparar respuestas ingresadas vs respuestas correctas
-function comparar(arr) {
-    resultado = 0;
-    arr.forEach((elemento, indice)=> {
-        const primerDigito = respuestasCorrectas[indice].substring(0,1) ? true : false
-        const segundoDigito = respuestasCorrectas[indice].substring(1,2) ? true : false
-        primerDigito && ((elemento.substring(0,1) == respuestasCorrectas[indice].substring(0,1) || elemento.substring(1,2) == respuestasCorrectas[indice].substring(0,1)) && resultado++);
-        segundoDigito && ((elemento.substring(1,2) == respuestasCorrectas[indice].substring(1,2) || elemento.substring(0,1) == respuestasCorrectas[indice].substring(1,2)) && resultado++);
-    })
-}
-
-//funcion para cargar imagen inicial
+//funcion para cargar imagen
 function cargarImagen(x) {
+    //espera
+    loading();
     //cargo imagen, input y boton siguiente
-    Imagen = imagenes[x];
-    let imgs = document.getElementById("imagenes");
-    let img = document.createElement("div");
-    img.id="imagenes-child";
-    img.className="img-test-ishihara-child";
-    img.innerHTML=`
-    <img id="img-src" src="${Imagen.img}" alt="">
-    <input type="text" id="nro-resp" placeholder="Número">
-    <button id="btnSiguiente" class="btn-test-inicio">Siguiente</button>
-    `;
-    imgs.append(img);
+    fetch('../assets/json/imgIshihara.json')
+    .then( (res) => res.json())
+    .then( (data) => {
+        Imagen = data[x];
+        let imgs = document.getElementById("imagenes");
+        let img = document.createElement("div");
+        img.id="imagenes-child";
+        img.className="img-test-ishihara-child";
+        img.innerHTML=`
+        <img id="img-src" src="${Imagen.img}" alt="">
+        <input type="text" id="nro-resp" placeholder="Número">
+        <button id="btnSiguiente" class="btn-test-inicio">Siguiente</button>
+        `;
+        imgs.append(img);
+        //evento sobre boton siguiente
+        if (x <= 11) {
+            let botonSte = document.getElementById("btnSiguiente");
+            botonSte.addEventListener("click", proceso);
+        }
+    })
 }
 
 //funcion de proceso
@@ -114,6 +123,8 @@ function proceso() {
         } else {
             //guardo respuesta
             respuestas.push(rsp);
+            //espera
+            loading();
             //elimino objetos
             let tst = document.getElementById("imagenes");
             let txt = document.getElementById("texto-test");
@@ -136,31 +147,33 @@ function proceso() {
         } else {
             //guardo respuesta
             respuestas.push(rsp);
+            //espera
+            loading();
             //reemplazo imagen
-            Imagen = imagenes[imgNro];
-            let img = document.getElementById("img-src");
-            img.src = Imagen.img;
+            fetch('../assets/json/imgIshihara.json')
+            .then( (res) => res.json())
+            .then( (data) => {
+                Imagen = data[imgNro];
+                let img = document.getElementById("img-src");
+                img.src = Imagen.img;
+            })
             //vacio input
             document.getElementById("nro-resp").value = "";
             //muevo la posicion
             nxtImg = parseFloat(imgNro) + 1;
             sessionStorage.setItem('imgId', nxtImg);
+            //cambio texto de boton en ultima vuelta
+            imgNro == 11 && (document.getElementById("btnSiguiente").innerText = "Finalizar");
             //notificacion
             Toastify({
                 text: "Respuesta guardada!",
-                duration: 2000, // milisegundos
+                duration: 1000, // milisegundos
                 position: 'center',
                 style: {
                     background: '#3291e6'
                 }
             }).showToast();
         }
-    }
-    //evento sobre boton siguiente
-    if (imgNro <= 11) {
-        let botonSte = document.getElementById("btnSiguiente");
-        botonSte.addEventListener("click", proceso);
-        imgNro == 11 && (botonSte.innerText = "Finalizar");
     }
 }
 

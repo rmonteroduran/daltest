@@ -3,46 +3,29 @@
 * Author: Rodrigo Montero
 */
 
-// array imagenes
-const imagenes = [
-    { id:1, img: "../assets/img/test_ninios/kids-color-blind-test-01.jpeg" },
-    { id:2, img: "../assets/img/test_ninios/kids-color-blind-test-02.jpeg" },
-    { id:3, img: "../assets/img/test_ninios/kids-color-blind-test-03.jpeg" },
-    { id:4, img: "../assets/img/test_ninios/kids-color-blind-test-04.jpeg" },
-    { id:5, img: "../assets/img/test_ninios/kids-color-blind-test-05.jpeg" },
-    { id:6, img: "../assets/img/test_ninios/kids-color-blind-test-06.jpeg" },
-    { id:7, img: "../assets/img/test_ninios/kids-color-blind-test-07.jpeg" },
-    { id:8, img: "../assets/img/test_ninios/kids-color-blind-test-08.jpeg" },
-    { id:9, img: "../assets/img/test_ninios/kids-color-blind-test-09.jpeg" },
-    { id:10, img: "../assets/img/test_ninios/kids-color-blind-test-10.jpeg" },
-]
-
-// array imagenes respuestas
-const imagenesResp = [
-    { id:'A', img: "../assets/img/test_ninios/01.jpeg" },
-    { id:'B', img: "../assets/img/test_ninios/02.jpeg" },
-    { id:'C', img: "../assets/img/test_ninios/03.jpeg" },
-    { id:'D', img: "../assets/img/test_ninios/04.jpeg" },
-    { id:'E', img: "../assets/img/test_ninios/05.jpeg" },
-    { id:'F', img: "../assets/img/test_ninios/06.jpeg" },
-    { id:'G', img: "../assets/img/test_ninios/07.jpeg" },
-    { id:'H', img: "../assets/img/test_ninios/08.jpeg" },
-    { id:'I', img: "../assets/img/test_ninios/09.jpeg" },
-    { id:'J', img: "../assets/img/test_ninios/10.jpeg" },
-]
-
 //variables para proceso
-let resultado = 0;
-const respuestasCorrectas = ['H','E','B','J','D','G','A','F','C','I'];
 sessionStorage.setItem('imgId', 0);
+let resultado = 0;
 respuestas = [];
 imgSeleccionada = "";
 
 //////////FUNCIONES///////////
 
+//espera
+function espera(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+//funcion asincronica para espera de carga de imagenes
+async function loading() {
+    let carga = document.getElementById("loading");
+    carga.className = "preloader";
+    await espera(1000);
+    carga.className = "";
+};
+
 //funcion para cargar resultado de test
 function finalTest() {
-    comparar(respuestas); 
     //incorporo respuestas a lista html
     let padreResp = document.getElementById("respuestas");
     padreResp.innerText = "Respuestas";
@@ -54,14 +37,25 @@ function finalTest() {
     //incorporo respuestas correctas a lista html
     let padreRespCorrectas = document.getElementById("respuestasCorrectas");
     padreRespCorrectas.innerText = "Respuestas Correctas"
-    for (const respuestaCorrecta of respuestasCorrectas) {
-        let li2 = document.createElement("li");
-        li2.innerHTML = respuestaCorrecta;
-        padreRespCorrectas.appendChild(li2);
-    }
+    fetch('../assets/json/resNinios.json')
+    .then( (res) => res.json())
+    .then( (data) => {
+        data.forEach((respuestaCorrecta) => {
+            let li2 = document.createElement("li");
+            li2.innerHTML = respuestaCorrecta;
+            padreRespCorrectas.appendChild(li2);
+        })
+    })
     //incorporo puntaje a html
     let puntaje = document.getElementById("puntaje");
-    puntaje.innerText = 'Resultado: ' + Math.round((resultado*100)/10) + '% (' + resultado + '/10)'
+    fetch('../assets/json/resNinios.json')
+    .then( (res) => res.json())
+    .then( (data) => {
+            respuestas.forEach((elemento, indice)=> {
+            elemento === data[indice] && resultado++;
+        });
+        puntaje.innerText = 'Resultado: ' + Math.round((resultado*100)/10) + '% (' + resultado + '/10)'
+    });
     //incorporo boton reiniciar
     let reinicio = document.getElementById("reiniciar");
     reinicio.href = "niniosTest.html"
@@ -72,42 +66,45 @@ function finalTest() {
     btn.innerText = "Reiniciar";
 }
 
-//funcion para comparar respuestas ingresadas vs respuestas correctas
-function comparar(arr) {
-    resultado = 0;
-    arr.forEach((elemento, indice)=> {
-        elemento === respuestasCorrectas[indice] && resultado++;
-    })
-}
-
 //funcion para cargar imagen inicial
 function cargarImagen(x) {
+    //espera
+    loading();
     //cargo imagen, input y boton siguiente
-    Imagen = imagenes[x];
-    let imgs = document.getElementById("imagenes");
-    let img = document.createElement("div");
-    img.id="imagenes-child";
-    img.className="img-test-ishihara-child";
-    img.innerHTML=`
-    <img id="img-src" src="${Imagen.img}" alt="">
-    `;
-    imgs.append(img);
+    fetch('../assets/json/imgNinios.json')
+    .then( (res) => res.json())
+    .then( (data) => {
+        Imagen = data[x];
+        let imgs = document.getElementById("imagenes");
+        let img = document.createElement("div");
+        img.id="imagenes-child";
+        img.className="img-test-ishihara-child";
+        img.innerHTML=`
+        <img id="img-src" src="${Imagen.img}" alt="">
+        `;
+        imgs.append(img);
+    });
 }
 
 //funcion para carga de imagenes de respuestas
 function imgRsp() {
-    let imgsRsp = document.getElementById("imagenesRespuestas")
-    imagenesResp.forEach(imagen => {
-        let imgRsp = document.createElement("div")
-        imgRsp.className ="col-lg-3 col-md-4"
-        imgRsp.id = "dibu" + imagen.id
-        imgRsp.innerHTML =`
-        <div class="gallery-item">
-            <img src="${imagen.img}" alt="" class="img-fluid dibus">
-        </div>
-        `
-        imgsRsp.append(imgRsp)
-    });
+    fetch('../assets/json/imgNiniosResp.json')
+        .then( (res) => res.json())
+        .then( (data) => {
+            let imgsRsp = document.getElementById("imagenesRespuestas");
+            data.forEach((imagen) => {
+                let imgRsp = document.createElement("div");
+                imgRsp.className ="col-lg-3 col-md-4"
+                imgRsp.id = "dibu" + imagen.id
+                imgRsp.innerHTML =`
+                <div class="gallery-item">
+                    <img src="${imagen.img}" alt="" class="img-fluid dibus">
+                </div>
+                `
+                imgsRsp.append(imgRsp)
+            })
+        })
+    
 }
 
 //funcion de proceso
@@ -124,12 +121,16 @@ function proceso() {
         //cargo imagenes respuestas
         imgRsp();
         //eventos de las imagenes
-        imagenesResp.forEach((el) => {
-            let img = document.getElementById("dibu" + el.id)
-            img.onclick = () => {
-                imgSeleccionada = el.id;
-                proceso();
-            }
+        fetch('../assets/json/imgNiniosResp.json')
+        .then( (res) => res.json())
+        .then( (data) => {
+            data.forEach((el) => {
+                let img = document.getElementById("dibu" + el.id)
+                img.onclick = () => {
+                    imgSeleccionada = el.id;
+                    proceso();
+                }
+            })
         })
         //muevo la posicion
         nxtImg = parseFloat(imgNro) + 1;
@@ -137,6 +138,8 @@ function proceso() {
     } else if (imgNro == 10) {
         //guardo respuesta
         respuestas.push(imgSeleccionada);
+        //espera
+        loading();
         //elimino objetos
         let tst = document.getElementById("imagenes");
         let txt = document.getElementById("texto-test");
@@ -149,17 +152,23 @@ function proceso() {
     } else {
         //guardo respuesta
         respuestas.push(imgSeleccionada);
+        //espera
+        loading();
         //reemplazo imagen
-        Imagen = imagenes[imgNro];
-        let img = document.getElementById("img-src");
-        img.src = Imagen.img;
+        fetch('../assets/json/imgNinios.json')
+        .then( (res) => res.json())
+        .then( (data) => {
+            Imagen = data[imgNro];
+            let img = document.getElementById("img-src");
+            img.src = Imagen.img;
+        });
         //muevo la posicion
         nxtImg = parseFloat(imgNro) + 1;
         sessionStorage.setItem('imgId', nxtImg);
         //notificacion
         Toastify({
             text: "Respuesta guardada!",
-            duration: 2000, // milisegundos
+            duration: 1000, // milisegundos
             position: 'center',
             style: {
                 background: '#3291e6'
