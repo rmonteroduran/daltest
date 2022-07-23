@@ -24,6 +24,13 @@ async function loading() {
     carga.className = "";
 };
 
+//funcion para foco
+function setFocusToImage(){
+    var imagen = document.getElementById("gallery");
+    imagen.focus();
+    imagen.scrollIntoView();
+}
+
 //funcion para cargar resultado de test
 function finalTest() {
     //incorporo puntaje a html
@@ -153,7 +160,9 @@ function proceso() {
             style: {
                 background: '#3291e6'
             }
-        }).showToast();        
+        }).showToast();  
+        //foco      
+        setFocusToImage();
     }
 }
 
