@@ -26,26 +26,6 @@ async function loading() {
 
 //funcion para cargar resultado de test
 function finalTest() {
-    //incorporo respuestas a lista html
-    let padreResp = document.getElementById("respuestas");
-    padreResp.innerText = "Respuestas";
-    for (const respuesta of respuestas) {
-        let li = document.createElement("li");
-        li.innerHTML = respuesta;
-        padreResp.appendChild(li);
-    }
-    //incorporo respuestas correctas a lista html
-    let padreRespCorrectas = document.getElementById("respuestasCorrectas");
-    padreRespCorrectas.innerText = "Respuestas Correctas"
-    fetch('../assets/json/resNinios.json')
-    .then( (res) => res.json())
-    .then( (data) => {
-        data.forEach((respuestaCorrecta) => {
-            let li2 = document.createElement("li");
-            li2.innerHTML = respuestaCorrecta;
-            padreRespCorrectas.appendChild(li2);
-        })
-    })
     //incorporo puntaje a html
     let puntaje = document.getElementById("puntaje");
     let texto = document.getElementById("texto-test");
