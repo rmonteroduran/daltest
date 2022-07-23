@@ -445,15 +445,18 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 1024px) {
   #hero {
     background-attachment: fixed;
+    background-size: cover;
   }
 }
 @media (max-width: 992px) {
   #hero {
-    margin-bottom: 0;
-    height: 100vh;
+    margin-bottom: -200px;
+    height: 80vh;
+    background: none;
   }
   #hero .container {
     padding-bottom: 63px;
+    text-align: center;
   }
   #hero h1 {
     font-size: 28px;
@@ -468,6 +471,11 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-height: 600px) {
   #hero {
     height: 110vh;
+    margin-bottom: -200px;
+    background: none;
+  }
+  #hero .container {
+    text-align: center;
   }
 }
 
@@ -915,7 +923,7 @@ section {
 }
 @media (max-width: 992px) {
   .row-services {
-    flex-direction: row;
+    flex-direction: column;
   }
   .col-services {
     height: 400px;
@@ -1590,12 +1598,20 @@ section {
 /*--------------------------------------------------------------
 # Ishihara / ninios
 --------------------------------------------------------------*/
+#puntaje {
+  color: #166ab5;
+}
+
+#reiniciar {
+  margin: 20px;
+}
+
 .ishi {
   padding-bottom: 0px;
 }
 
 .resp {
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1616,9 +1632,10 @@ section {
 
 .resultado {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
 }
 
 .btn-test-inicio {
@@ -1654,7 +1671,7 @@ section {
 }
 
 .img-test-ishihara-child img {
-  height: 500px;
+  height: 400px;
   width: auto;
 }
 
@@ -1668,6 +1685,25 @@ section {
 
 .dibus {
   padding: 20px;
+}
+
+@media (min-width: 1024px) {
+  .img-test-ishihara-child img {
+    height: 400px;
+    width: auto;
+  }
+}
+@media (max-width: 992px) {
+  .img-test-ishihara-child img {
+    height: 300px;
+    width: auto;
+  }
+}
+@media (max-height: 600px) {
+  .img-test-ishihara-child img {
+    height: 200px;
+    width: auto;
+  }
 }
 
 /*--------------------------------------------------------------

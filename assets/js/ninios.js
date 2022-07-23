@@ -48,13 +48,15 @@ function finalTest() {
     })
     //incorporo puntaje a html
     let puntaje = document.getElementById("puntaje");
+    let texto = document.getElementById("texto-test");
     fetch('../assets/json/resNinios.json')
     .then( (res) => res.json())
     .then( (data) => {
             respuestas.forEach((elemento, indice)=> {
             elemento === data[indice] && resultado++;
         });
-        puntaje.innerText = 'Resultado: ' + Math.round((resultado*100)/10) + '% (' + resultado + '/10)'
+        texto.innerText = 'Recuerda que la realización de esta prueba de daltonismo es meramente aproximativa y no excluye, de ningún modo, la revisión por un profesional óptico u oftalmólogo.';
+        puntaje.innerText = Math.round((resultado*100)/10) + '% (' + resultado + '/10)'
     });
     //incorporo boton reiniciar
     let reinicio = document.getElementById("reiniciar");
@@ -142,10 +144,8 @@ function proceso() {
         loading();
         //elimino objetos
         let tst = document.getElementById("imagenes");
-        let txt = document.getElementById("texto-test");
         let rsp = document.getElementById("imagenesRespuestas");
         tst.remove();
-        txt.remove();
         rsp.remove();
         //calculo resultado test
         finalTest();
